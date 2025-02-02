@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import gspread
 import datetime
+import json
 from oauth2client.service_account import ServiceAccountCredentials
 
 # 🔥 Set Page Config
@@ -10,10 +11,12 @@ st.set_page_config(page_title="Personal Finance Tracker", layout="wide")
 # 🔥 Full Path of credentials.json
 CREDENTIALS_PATH = "D:/Projects/Expense Tracker/credentials.json"
 
+    creds_dict = json.loads(st.secrets["gcp_service_account"])
+
 # 🔥 Google Sheets API Setup
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 try:
-    creds = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_PATH, scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
     client = gspread.authorize(creds)
     # 📊 Google Sheets Connection
     SHEET_NAME = "Expense Tracker"

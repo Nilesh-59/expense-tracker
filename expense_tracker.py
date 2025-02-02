@@ -10,9 +10,8 @@ st.set_page_config(page_title="Personal Finance Tracker", layout="wide")
 
 # 🔥 Full Path of credentials.json
 CREDENTIALS_PATH = "D:/Projects/Expense Tracker/credentials.json"
-
-    creds_dict = json.loads(st.secrets["gcp_service_account"])
-
+creds_dict = json.loads(st.secrets["gcp_service_account"])
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 # 🔥 Google Sheets API Setup
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 try:
